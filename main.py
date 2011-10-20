@@ -21,12 +21,14 @@ class PollHandler(webapp.RequestHandler):
         for feed_url in models.get_urls():
             logging.info("********** parsing feed from " + feed_url.url)
             rss_feed_parser.parseFeed(feed_url.url)
+            rss_feed_parser.checkDeath(feed_url.url)
 
     def post(self):
         logging.info("********** task worked")
         for feed_url in models.get_urls():
             logging.info("********** parsing feed from " + feed_url.url)
             rss_feed_parser.parseFeed(feed_url.url)
+            rss_feed_parser.checkDeath(feed_url.url)
 
 
 
