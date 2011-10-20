@@ -5,7 +5,7 @@
 
 <ul>
  {% for url in urls %}
-   <li>{{url.url}}</li>
+   <li>{{url.url}} <a href="/admin/delete/url?key={{url.key.id}}">delete</a></li>
  {% endfor %}
 </ul>
 

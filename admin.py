@@ -6,6 +6,11 @@ import models
 import helpers
 
 
+class IndexHandler(webapp.RequestHandler):
+    @helpers.write_uncached_response
+    def get(self):
+        return helpers.render_template(self, 'adminviews/index.html', {})
+
 class ViewUrls(webapp.RequestHandler):
     @helpers.write_uncached_response
     def get(self):
@@ -24,9 +29,21 @@ class AddUrl(webapp.RequestHandler):
             return helpers.render_template(self, 'adminviews/urls.html', {'urls': models.get_urls(), 'form': form})
 
 
+class DeleteUrl(webapp.RequestHandler):
+    @helpers.write_uncached_response
+    def get(self):
+        key = self.request.get('key')
+        url = models.get_url(key)
+        url.delete()
+        self.redirect("/admin/view/urls")
+
+
+
 def main():
     application = webapp.WSGIApplication([
+    ('/admin/', IndexHandler),
     ('/admin/view/urls', ViewUrls),
+    ('/admin/delete/url', DeleteUrl),
     ('/admin/add/url', AddUrl),
     ], debug=True)
     wsgiref.handlers.CGIHandler().run(application)

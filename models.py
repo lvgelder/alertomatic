@@ -47,3 +47,7 @@ def store_url(url):
 
 def get_urls(maximum=250):
     return db.Query(Url).fetch(maximum)
+
+
+def get_url(key):
+    return Url.get_by_id(int(key))
