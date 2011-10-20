@@ -30,8 +30,11 @@ class EmailForm(djangoforms.ModelForm):
       class Meta:
         model = EmailAddress
 
-def store_article(created_at, published_time, title, url, feed_url, position, alerted=False):
+def create_article(created_at, published_time, title, url, feed_url, position, alerted=False):
     report = Article(created_at=created_at, published_time=published_time, title=title, url=url, feed_url=feed_url, position=position, alerted=alerted)
+    return report
+
+def store_article(report):
     report = report.put()
     return report.id()
 
