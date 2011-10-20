@@ -26,7 +26,7 @@ class UrlForm(djangoforms.ModelForm):
       class Meta:
         model = Url
 
-class EmailAddressForm(djangoforms.ModelForm):
+class EmailForm(djangoforms.ModelForm):
       class Meta:
         model = EmailAddress
 
@@ -52,6 +52,12 @@ def store_url(url):
 def get_urls(maximum=250):
     return db.Query(Url).fetch(maximum)
 
+def get_emails(maximum=250):
+    return db.Query(EmailAddress).fetch(maximum)
+
 
 def get_url(key):
     return Url.get_by_id(int(key))
+
+def get_email(key):
+    return EmailAddress.get_by_id(int(key))

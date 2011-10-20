@@ -1,0 +1,20 @@
+<html>
+<head><title>Emails</title></head>
+<body>
+<h2>Current emails</h2>
+
+<ul>
+ {% for email in emails %}
+   <li>{{email.email_address}} <a href="/admin/delete/email?key={{email.key.id}}">delete</a></li>
+ {% endfor %}
+</ul>
+
+ <form action="/admin/add/email" method="POST" class="email-form">
+     <label for="id_url">Add email:</label>
+     {{form.email_address.errors}}
+     {{form.email_address}}
+     <input type="submit" value="Add email"/>
+ </form>
+
+</body>
+</html>
