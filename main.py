@@ -6,6 +6,8 @@ from google.appengine.ext import webapp
 from google.appengine.api import memcache
 import helpers
 import logging
+import models
+import datetime
 
 
 class MainHandler(webapp.RequestHandler):
@@ -17,6 +19,7 @@ class MainHandler(webapp.RequestHandler):
 class PollHandler(webapp.RequestHandler):
     def get(self):
         logging.info("********** task worked")
+        models.store_article(datetime.datetime.now(), datetime.datetime.now(), "title", "url",  alerted=False)
 
     #@helpers.cached('main')
     def post(self):
