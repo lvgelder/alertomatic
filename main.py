@@ -22,10 +22,11 @@ class PollHandler(webapp.RequestHandler):
             logging.info("********** parsing feed from " + feed_url.url)
             rss_feed_parser.parseFeed(feed_url.url)
 
-    #@helpers.cached('main')
     def post(self):
         logging.info("********** task worked")
-        #return helpers.render_template(self, 'webviews/front.html', {'person': 'me'})
+        for feed_url in models.get_urls():
+            logging.info("********** parsing feed from " + feed_url.url)
+            rss_feed_parser.parseFeed(feed_url.url)
 
 
 
