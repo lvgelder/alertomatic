@@ -11,17 +11,41 @@ def parseFeed(rssUrl):
     for item in d['items']:
         count=count+1
 
-        new_articles= list();
+        new_articles= list()
         article_url = item.link.split("&url=")[1]
         if(article_url.startswith("http://www.guardian")):
-            logging.info(article_url);
+            logging.info(article_url)
             logging.info(models.get_article(article_url))
             if(not models.get_article(article_url)):
                 new_article = models.create_article(datetime.now(), datetime.strptime(item.date, "%a, %d %b %Y %H:%M:%S %Z"), item.title, article_url, rssUrl, count,  alerted=False)
                 new_articles.append(new_article)
-                models.store_article(new_article)
+                new_article.put()
+
         if(len(new_articles)>0):
             logging.info("Found new headlines.  Sending alerts")
             notifications.send_alerts(rssUrl,new_articles)
+
+
+def checkDeath(rssUrl):
+    stored_articles = models.get_articles_for_feed(rssUrl)
+
+    rss_article_url_list = list()
+    d = feedparser.parse(rssUrl)
+    for item in d['items']:
+        article_url = item.link.split("&url=")[1]
+        rss_article_url_list.append(article_url)
+
+    dead_articles = list()
+    for article in stored_articles:
+        if(not article.url in rss_article_url_list):
+            dead_articles.append(article)
+            article.delete()
+
+
+    if(len(dead_articles)>0):
+        logging.info("Headline died.  Sending alerts")
+        notifications.send_death_alert(rssUrl,dead_articles)
+
+
 
   

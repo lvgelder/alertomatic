@@ -34,9 +34,6 @@ def create_article(created_at, published_time, title, url, feed_url, position, a
     report = Article(created_at=created_at, published_time=published_time, title=title, url=url, feed_url=feed_url, position=position, alerted=alerted)
     return report
 
-def store_article(report):
-    report = report.put()
-    return report.id()
 
 def store_email(email_address):
     email = EmailAddress(email_address=email_address)
@@ -47,6 +44,11 @@ def get_article(url):
     logging.info("querying for url: "+url)
     query = db.Query(Article).filter('url =', url)
     return query.get()
+
+def get_articles_for_feed(feedurl, maximum=250):
+    query = db.Query(Article).filter('feed_url =', feedurl)
+    return query.fetch(maximum)
+
 
 def store_url(url):
     url = Url(url=url)
