@@ -41,7 +41,9 @@ def store_email(email_address):
     return email.id()
 
 def get_article(url):
-    return db.Query(Article).filter('url=',url).get()
+    logging.info("querying for url: "+url)
+    query = db.Query(Article).filter('url =', url)
+    return query.get()
 
 def store_url(url):
     url = Url(url=url)
