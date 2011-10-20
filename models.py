@@ -12,6 +12,7 @@ class Article(search.SearchableModel):
     url = db.StringProperty(required=True)
     alerted = db.BooleanProperty(default=False)
     position = db.IntegerProperty(required=True)
+    feed_url = db.StringProperty(required=True)
 
 
 class Url(search.SearchableModel):
@@ -29,8 +30,8 @@ class EmailAddressForm(djangoforms.ModelForm):
       class Meta:
         model = EmailAddress
 
-def store_article(created_at, published_time, title, url, position, alerted=False):
-    report = Article(created_at=created_at, published_time=published_time, title=title, url=url, position=position, alerted=alerted)
+def store_article(created_at, published_time, title, url, feed_url, position, alerted=False):
+    report = Article(created_at=created_at, published_time=published_time, title=title, url=url, feed_url=feed_url, position=position, alerted=alerted)
     report = report.put()
     return report.id()
 
@@ -38,6 +39,9 @@ def store_email(email_address):
     email = EmailAddress(email_address=email_address)
     email = email.put()
     return email.id()
+
+def get_article(url):
+    return db.Query(Article).filter('url=',url).get()
 
 def store_url(url):
     url = Url(url=url)
