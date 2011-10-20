@@ -19,7 +19,7 @@ class MainHandler(webapp.RequestHandler):
 class PollHandler(webapp.RequestHandler):
     def get(self):
         logging.info("********** task worked")
-        models.store_article(datetime.datetime.now(), datetime.datetime.now(), "title", "url",  alerted=False)
+        models.store_article(datetime.datetime.now(), datetime.datetime.now(), "title", "url", 2,  alerted=False)
 
     #@helpers.cached('main')
     def post(self):
