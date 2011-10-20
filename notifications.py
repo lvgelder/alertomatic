@@ -8,7 +8,7 @@ def send_alerts(feed_url, articles):
         slug = extract_slug(article.url)
         fid = extract_feed_identifier(feed_url)
         for email in models.get_emails():
-            message = mail.EmailMessage(sender="alertomatic@guardian.co.uk",
+            message = mail.EmailMessage(sender="sheena.luu@guardian.co.uk",
                                          subject=slug+" : "+str(article.position)+" in "+fid)
             message.to = email.email_address
             message.body = format_message(feed_url, article)
@@ -20,7 +20,7 @@ def send_death_alert(feed_url, articles):
         slug = extract_slug(article.url)
         fid = extract_feed_identifier(feed_url)
         for email in models.get_emails():
-            message = mail.EmailMessage(sender="alertomatic@guardian.co.uk",
+            message = mail.EmailMessage(sender="sheena.luu@guardian.co.uk",
                                         subject=slug+" : removed from "+fid)
             message.to = email.email_address
             message.body = format_headline_death_message(feed_url, article)
@@ -29,7 +29,7 @@ def send_death_alert(feed_url, articles):
 
 
 def format_message(feed_url, article):
-    body = "This article:  "+ feed_url +" has been spotted in position " + str(article.position) + " in Google news "
+    body = "This article:  "+ article.url +" has been spotted in position " + str(article.position) + " in Google news "
     body = body + extract_feed_identifier(feed_url)
     body = body + " at "+str(article.created_at)+": \n"
     body = body + "\n-----------------------------\n"
@@ -37,7 +37,7 @@ def format_message(feed_url, article):
     return body
 
 def format_headline_death_message(feed_url, article):
-    body = "This article:  "+ feed_url +" has been removed from Google news "
+    body = "This article:  "+ article.url +" has been removed from Google news "
     body = body + extract_feed_identifier(feed_url)
     body = body + " at "+str(article.created_at)+": \n"
     body = body + "\n-----------------------------\n"
