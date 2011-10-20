@@ -13,7 +13,7 @@ def parseFeed(rssUrl):
 
         new_articles= list()
         article_url = item.link.split("&url=")[1]
-        if(article_url.startswith("http://www.guardian")):
+        if(article_url.startswith("http://www.guardian.co.uk") or article_url.startswith("http://www.guardiannews.com")):
             logging.info(article_url)
             logging.info(models.get_article(article_url))
             if(not models.get_article(article_url)):
