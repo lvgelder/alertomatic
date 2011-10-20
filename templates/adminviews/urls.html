@@ -1,0 +1,20 @@
+<html>
+<head><title>Urls</title></head>
+<body>
+<h2>Current urls</h2>
+
+<ul>
+ {% for url in urls %}
+   <li>{{url.url}}</li>
+ {% endfor %}
+</ul>
+
+ <form action="/admin/add/url" method="POST" class="url-form">
+     <label for="id_url">Add Url:</label>
+     {{form.url.errors}}
+     {{form.url}}
+     <input type="submit" value="Add url"/>
+ </form>
+
+</body>
+</html>

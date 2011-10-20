@@ -14,7 +14,36 @@ class Article(search.SearchableModel):
     position = db.IntegerProperty(required=True)
 
 
+class Url(search.SearchableModel):
+    url = db.StringProperty(required=True)
+
+class EmailAddress(search.SearchableModel):
+    email_address = db.StringProperty(required=True)
+
+
+class UrlForm(djangoforms.ModelForm):
+      class Meta:
+        model = Url
+
+class EmailAddressForm(djangoforms.ModelForm):
+      class Meta:
+        model = EmailAddress
+
 def store_article(created_at, published_time, title, url, position, alerted=False):
     report = Article(created_at=created_at, published_time=published_time, title=title, url=url, position=position, alerted=alerted)
     report = report.put()
     return report.id()
+
+def store_email(email_address):
+    email = EmailAddress(email_address=email_address)
+    email = email.put()
+    return email.id()
+
+def store_url(url):
+    url = Url(url=url)
+    url = url.put()
+    return url.id()
+
+
+def get_urls(maximum=250):
+    return db.Query(Url).fetch(maximum)
