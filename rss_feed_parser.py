@@ -21,6 +21,7 @@ def parseFeed(rssUrl):
                 new_articles.append(new_article)
                 models.store_article(new_article)
         if(len(new_articles)>0):
+            logging.info("Found new headlines.  Sending alerts")
             notifications.send_alerts(rssUrl,new_articles)
 
   
