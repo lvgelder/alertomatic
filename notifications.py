@@ -51,8 +51,8 @@ def extract_slug(article_url):
 
 def extract_feed_identifier(feed_url):
     if("ned=uk" in feed_url):
-        return "uk"
+        return "UK"
     elif("ned=us" in feed_url):
-        return "us"
+        return "US"
     else:
         return feed_url
