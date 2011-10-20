@@ -1,0 +1,15 @@
+article_data(
+{
+	"results":
+	[
+	{% for item in items %}
+	{
+		"url": "{{item.url}}",
+		"position": "{{item.position}}",
+		"title": "{{item.title}}"
+	  }
+	{% if not forloop.last %} , {% endif %}
+	{% endfor %}
+	]
+}
+)

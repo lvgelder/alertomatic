@@ -16,6 +16,12 @@ class MainHandler(webapp.RequestHandler):
     def get(self):
         return helpers.render_template(self, 'webviews/front.html', {'articles': models.get_articles()})
 
+class JsonHandler(webapp.RequestHandler):
+    @helpers.write_response
+    #@helpers.cached('main')
+    def get(self):
+        return helpers.render_template(self, 'webviews/jsonfeed.html', {'items': models.get_articles()})
+
 class PollHandler(webapp.RequestHandler):
     def get(self):
         for feed_url in models.get_urls():
@@ -36,7 +42,7 @@ def main():
   application = webapp.WSGIApplication([
         ('/', MainHandler),
         ('/services/poll', PollHandler),
-
+        ('/data.json', JsonHandler),
         ],    debug=True)
   wsgiref.handlers.CGIHandler().run(application)
 
