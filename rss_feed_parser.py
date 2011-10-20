@@ -13,6 +13,7 @@ def parseFeed(rssUrl):
 
         new_articles= list()
         article_url = item.link.split("&url=")[1]
+        article_url = article_url.rstrip("?newsfeed%3Dtrue")
         if(article_url.startswith("http://www.guardian.co.uk") or article_url.startswith("http://www.guardiannews.com")):
             logging.info(article_url)
             logging.info(models.get_article(article_url))
@@ -33,6 +34,7 @@ def checkDeath(rssUrl):
     d = feedparser.parse(rssUrl)
     for item in d['items']:
         article_url = item.link.split("&url=")[1]
+        article_url = article_url.rstrip("?newsfeed%3Dtrue")
         rss_article_url_list.append(article_url)
 
     dead_articles = list()
