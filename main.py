@@ -14,7 +14,7 @@ class MainHandler(webapp.RequestHandler):
     @helpers.write_response
     #@helpers.cached('main')
     def get(self):
-        return helpers.render_template(self, 'webviews/front.html', {'person': 'me'})
+        return helpers.render_template(self, 'webviews/front.html', {'articles': models.get_articles()})
 
 class PollHandler(webapp.RequestHandler):
     def get(self):

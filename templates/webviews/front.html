@@ -1,4 +1,13 @@
 <html>
 <head><title>Alertomatic</title></head>
-<body>Alertomatic says hello {{person}}</body>
+<body>
+ <h2>Current guardian stories on google news</h2>
+
+ <ul>
+      {% for article in articles %}
+     <li>{{article.position}}. <a href="{{article.url}}">{{article.title}}</a></li>
+     {% endfor %}
+ </ul>
+
+</body>
 </html>
