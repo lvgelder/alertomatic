@@ -45,8 +45,8 @@ def format_headline_death_message(feed_url, article):
     return body
 
 def extract_slug(article_url):
-    slug = article_url.lstrip('http://www.guardiannews.com')
-    slug = slug.lstrip('http://www.guardian.co.uk')
+    slug = article_url.lstrip('http://www.guardiannews.com/')
+    slug = slug.lstrip('http://www.guardian.co.uk/')
     return slug
 
 def extract_feed_identifier(feed_url):
