@@ -68,3 +68,6 @@ def get_url(key):
 
 def get_email(key):
     return EmailAddress.get_by_id(int(key))
+
+def get_articles(maximum=250):
+    return db.Query(Article).order('position').fetch(maximum)
