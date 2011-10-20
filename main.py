@@ -6,7 +6,7 @@ from google.appengine.ext import webapp
 from google.appengine.api import memcache
 import helpers
 import logging
-import models
+import rss_feed_parser
 import datetime
 
 
@@ -19,7 +19,7 @@ class MainHandler(webapp.RequestHandler):
 class PollHandler(webapp.RequestHandler):
     def get(self):
         logging.info("********** task worked")
-        models.store_article(datetime.datetime.now(), datetime.datetime.now(), "title", "url", 2,  alerted=False)
+        rss_feed_parser.parseFeed("http://news.google.com/news?ned=uk&topic=h&output=rss")
 
     #@helpers.cached('main')
     def post(self):
