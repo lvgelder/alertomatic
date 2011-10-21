@@ -7,7 +7,8 @@ article_data(
 		"url": "{{item.url}}",
 		"position": "{{item.position}}",
 		"title": "{{item.title}}",
-        "category": "{{item.category}}"
+        "category": "{{item.category}}",
+        "created_at": "{{item.created_at|date:"g:iA"}}"
 	  }
 	{% if not forloop.last %} , {% endif %}
 	{% endfor %}
