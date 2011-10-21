@@ -16,6 +16,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Google App Engine SDK" level="project" />
     <orderEntry type="library" name="/usr/local/lib/python2.7/dist-packages" level="project" />
+    <orderEntry type="library" name="Google App Engine SDK" level="project" />
   </component>
 </module>
 
