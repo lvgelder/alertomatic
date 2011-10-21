@@ -1,5 +1,5 @@
-application: news-alertomatic
-version: 3
+application: headline-alertomatic
+version: 4
 runtime: python
 api_version: 1
 
