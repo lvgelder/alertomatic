@@ -8,7 +8,7 @@ def send_alerts(feed_url, articles):
         slug = extract_slug(article.url)
         fid = extract_feed_identifier(feed_url)
         for email in models.get_emails():
-            subject =  slug+" : top position in cluster "+str(article.position)+" "+fid
+            subject =  slug+" : position 1 : "+fid
             if(article.category):
                 subject =  subject + " "+ article.category
             message = mail.EmailMessage(sender="sheena.luu@guardian.co.uk",
@@ -16,14 +16,14 @@ def send_alerts(feed_url, articles):
             message.to = email.email_address
             message.body = format_message(feed_url, article)
             message.send()
-            logging.info("sent email alert to "+email.email_address)
+            logging.info("*****sent email alert to "+email.email_address+" with subject "+subject)
 
 def send_death_alert(feed_url, articles):
     for article in articles:
         slug = extract_slug(article.url)
         fid = extract_feed_identifier(feed_url)
         for email in models.get_emails():
-            subject =  slug+" : removed from top position in "+fid
+            subject =  slug+" : removed from position 1 : "+fid
             if(article.category):
                 subject =  subject + " "+ article.category
             message = mail.EmailMessage(sender="sheena.luu@guardian.co.uk",
@@ -31,7 +31,7 @@ def send_death_alert(feed_url, articles):
             message.to = email.email_address
             message.body = format_headline_death_message(feed_url, article)
             message.send()
-            logging.info("sent headline-death alert to "+email.email_address)
+            logging.info("*****sent headline-death alert to "+email.email_address+" with subject "+subject)
 
 
 def format_message(feed_url, article):
@@ -53,8 +53,10 @@ def format_headline_death_message(feed_url, article):
     return body
 
 def extract_slug(article_url):
-    slug = article_url.lstrip('http://www.guardiannews.com/')
-    slug = slug.lstrip('http://www.guardian.co.uk/')
+    if("http://www.guardiannews.com" in article_url):
+        slug = article_url.split("http://www.guardiannews.com")[1]
+    elif("http://www.guardian.co.uk" in article_url):
+        slug = article_url.split("http://www.guardian.co.uk")[1]
     return slug
 
 def extract_feed_identifier(feed_url):
