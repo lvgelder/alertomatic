@@ -8,7 +8,7 @@ def send_alerts(feed_url, articles):
         slug = extract_slug(article.url)
         fid = extract_feed_identifier(feed_url)
         for email in models.get_emails():
-            subject =  slug+" : position 1 : "+fid
+            subject =  slug+" : position 1 : Google News "+fid
             if(article.category):
                 subject =  subject + " "+ article.category
             message = mail.EmailMessage(sender="sheena.luu@guardian.co.uk",
@@ -23,7 +23,7 @@ def send_death_alert(feed_url, articles):
         slug = extract_slug(article.url)
         fid = extract_feed_identifier(feed_url)
         for email in models.get_emails():
-            subject =  slug+" : removed from position 1 : "+fid
+            subject =  slug+" : removed from position 1 : Google News "+fid
             if(article.category):
                 subject =  subject + " "+ article.category
             message = mail.EmailMessage(sender="sheena.luu@guardian.co.uk",
