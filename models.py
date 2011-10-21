@@ -41,9 +41,9 @@ def store_email(email_address):
     email = email.put()
     return email.id()
 
-def get_article(url):
+def get_article(url, feed_url):
     logging.info("querying for url: "+url)
-    query = db.Query(Article).filter('url =', url)
+    query = db.Query(Article).filter('url =', url).filter('feed_url =', feed_url)
     return query.get()
 
 def get_articles_for_feed(feedurl, maximum=250):

@@ -16,8 +16,8 @@ def parseFeed(rssUrl):
         article_url = article_url.split("?newsfeed")[0]
         if(article_url.startswith("http://www.guardian.co.uk") or article_url.startswith("http://www.guardiannews.com")):
             logging.info(article_url)
-            logging.info(models.get_article(article_url))
-            if(not models.get_article(article_url)):
+            logging.info(models.get_article(article_url,rssUrl))
+            if(not models.get_article(article_url,rssUrl)):
                 pubtime = datetime.strptime(item.date, "%a, %d %b %Y %H:%M:%S %Z")
                 plushour = timedelta(hours=1)
                 pubtime = pubtime + plushour

@@ -1,2 +1,3 @@
 TO RUN LOCALLY
 /home/sluu/projects/google_appengine/dev_appserver.py .
+/home/sluu/projects/google_appengine/appcfg.py update .
