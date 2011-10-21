@@ -18,7 +18,7 @@ def parseFeed(rssUrl):
             logging.info(article_url)
             logging.info(models.get_article(article_url))
             if(not models.get_article(article_url)):
-                new_article = models.create_article(datetime.now(), datetime.strptime(item.date, "%a, %d %b %Y %H:%M:%S %Z"), item.title, article_url, rssUrl, count,  alerted=False)
+                new_article = models.create_article(datetime.now(), datetime.strptime(item.date, "%a, %d %b %Y %H:%M:%S %Z"), item.title, article_url, item.category, rssUrl, count,  alerted=False)
                 new_articles.append(new_article)
                 new_article.put()
 

@@ -8,8 +8,11 @@ def send_alerts(feed_url, articles):
         slug = extract_slug(article.url)
         fid = extract_feed_identifier(feed_url)
         for email in models.get_emails():
+            subject =  slug+" : "+str(article.position)+" in "+fid
+            if(article.category):
+                subject =  subject + " "+ article.category
             message = mail.EmailMessage(sender="sheena.luu@guardian.co.uk",
-                                         subject=slug+" : "+str(article.position)+" in "+fid)
+                                        subject=subject)
             message.to = email.email_address
             message.body = format_message(feed_url, article)
             message.send()
@@ -20,8 +23,11 @@ def send_death_alert(feed_url, articles):
         slug = extract_slug(article.url)
         fid = extract_feed_identifier(feed_url)
         for email in models.get_emails():
+            subject =  slug+" : removed from "+fid
+            if(article.category):
+                subject =  subject + " "+ article.category
             message = mail.EmailMessage(sender="sheena.luu@guardian.co.uk",
-                                        subject=slug+" : removed from "+fid)
+                                        subject=subject)
             message.to = email.email_address
             message.body = format_headline_death_message(feed_url, article)
             message.send()
@@ -29,7 +35,8 @@ def send_death_alert(feed_url, articles):
 
 
 def format_message(feed_url, article):
-    body = "This article:  "+ article.url +" has been spotted in position " + str(article.position) + " in Google news "
+    fid = extract_feed_identifier(feed_url)
+    body = "This article:  "+ article.url +" has been spotted in top position in cluster " + str(article.position) + " in Google news "+fid+" "+ article.category
     body = body + extract_feed_identifier(feed_url)
     body = body + " at "+str(article.created_at)+": \n"
     body = body + "\n-----------------------------\n"
@@ -37,7 +44,8 @@ def format_message(feed_url, article):
     return body
 
 def format_headline_death_message(feed_url, article):
-    body = "This article:  "+ article.url +" has been removed from Google news "
+    fid = extract_feed_identifier(feed_url)
+    body = "This article:  "+ article.url +" has been removed from top position in Google news "+fid+" "+ article.category
     body = body + extract_feed_identifier(feed_url)
     body = body + " at "+str(article.created_at)+": \n"
     body = body + "\n-----------------------------\n"
