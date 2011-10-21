@@ -3,7 +3,7 @@ import models
 import logging
 import notifications
 from datetime import datetime
-
+from datetime import timedelta
 
 def parseFeed(rssUrl):
     d = feedparser.parse(rssUrl)
@@ -18,7 +18,13 @@ def parseFeed(rssUrl):
             logging.info(article_url)
             logging.info(models.get_article(article_url))
             if(not models.get_article(article_url)):
-                new_article = models.create_article(datetime.now(), datetime.strptime(item.date, "%a, %d %b %Y %H:%M:%S %Z"), item.title, article_url, rssUrl, count,  alerted=False)
+                pubtime = datetime.strptime(item.date, "%a, %d %b %Y %H:%M:%S %Z")
+                plushour = timedelta(hours=pubtime.hour +1)
+                pubtime = pubtime - plushour
+                polledtime = datetime.now()
+                plushour2 = timedelta(hours=polledtime.hour +1)
+                polledtime = polledtime - plushour2
+                new_article = models.create_article(polledtime, pubtime, item.title, article_url, rssUrl, count,  alerted=False)
                 new_articles.append(new_article)
                 new_article.put()
 
