@@ -19,11 +19,11 @@ def parseFeed(rssUrl):
             logging.info(models.get_article(article_url))
             if(not models.get_article(article_url)):
                 pubtime = datetime.strptime(item.date, "%a, %d %b %Y %H:%M:%S %Z")
-                plushour = timedelta(hours=pubtime.hour +1)
-                pubtime = pubtime - plushour
+                plushour = timedelta(hours=1)
+                pubtime = pubtime + plushour
                 polledtime = datetime.now()
-                plushour2 = timedelta(hours=polledtime.hour +1)
-                polledtime = polledtime - plushour2
+                plushour2 = timedelta(hours=1)
+                polledtime = polledtime + plushour2
                 new_article = models.create_article(polledtime, pubtime, item.title, article_url, rssUrl, count,  alerted=False)
                 new_articles.append(new_article)
                 new_article.put()
