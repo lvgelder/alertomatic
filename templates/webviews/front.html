@@ -14,38 +14,21 @@
     </head>
     <body>
     <div class="dashboard">
-       <h1>Current guardian stories on google news <small>last update at 14:35</small></h1>
+        {% if first_article %}
+       <h1>Current guardian stories on google news <small>last update at {{first_article.created_at|date:"g:iA"}}</small></h1>
 
               <div>
                   <table>
-                      <tr>
+
                          {% for article in articles %}
+                      <tr>
                          <td class="rank">{{article.position}}</td>
                          <td class="headline"><a href="{{article.url}}" title="{{article.title}}">{{article.title}}</a></td> 
-                         <td class="since">13:45</td>
+                         <td class="since">{{article.created_at|date:"g:iA"}}</td>
+                      </tr>
                          {% endfor %}
-                       </tr>
-                  
-                      <tr>
-                        <td class="rank">4</td>
-                        <td class="headline"><a href="http://www.gu.com" title="Some arbitrary headline">Some arbitrary headline</a></td> 
-                        <td class="since">13:45</td>
-                      </tr>
-                      <tr>
-                        <td class="rank">4</td>
-                        <td class="headline"><a href="http://www.gu.com" title="Some arbitrary headline">Some arbitrary headline</a></td> 
-                        <td class="since">13:45</td>
-                      </tr>
-                      <tr>
-                        <td class="rank">4</td>
-                        <td class="headline"><a href="http://www.gu.com" title="Some arbitrary headline">Some arbitrary headline</a></td> 
-                        <td class="since">13:45</td>
-                      </tr>
-                      <tr>
-                        <td class="rank">4</td>
-                        <td class="headline"><a href="http://www.gu.com" title="Some arbitrary headline">Some arbitrary headline</a></td> 
-                        <td class="since">13:45</td>
-                      </tr>
+
+
                     </tbody>
                     <thead>
 
@@ -60,6 +43,9 @@
           
         
        </div>
+        {% else %}
+        <h1>No guardian stories are currently on google news. Check back later...</h1>
+       {% endif %}
      </div> 
        
        
