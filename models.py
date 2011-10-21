@@ -72,3 +72,6 @@ def get_email(key):
 
 def get_articles(maximum=250):
     return db.Query(Article).order('position').fetch(maximum)
+
+def get_latest_articles(maximum=5):
+    return db.Query(Article).order('-created_at').fetch(maximum)

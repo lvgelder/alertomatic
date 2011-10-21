@@ -1,13 +1,53 @@
+<!DOCTYPE html>
 <html>
-<head><title>Alertomatic</title></head>
-<body>
- <h2>Current guardian stories on google news</h2>
+    <head>
+        <title>Alertomatic</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1;IE=7">
+        
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/script.js"></script>
+        <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.min.css">
+   
+        <link type="text/css" rel="stylesheet" href="/static/styles.css">
+    
+    </head>
+    <body>
+    <div class="dashboard">
+        {% if first_article %}
+       <h1>Current guardian stories on google news <small>last update at {{first_article.created_at|date:"g:iA"}}</small></h1>
 
- <ul>
-      {% for article in articles %}
-     <li>{{article.position}}. <a href="{{article.url}}">{{article.title}}</a></li>
-     {% endfor %}
- </ul>
+              <div>
+                  <table>
 
-</body>
+                         {% for article in articles %}
+                      <tr>
+                         <td class="rank">{{article.position}}</td>
+                         <td class="headline"><a href="{{article.url}}" title="{{article.title}}">{{article.title}}</a></td> 
+                         <td class="since">{{article.created_at|date:"g:iA"}}</td>
+                      </tr>
+                         {% endfor %}
+
+
+                    </tbody>
+                    <thead>
+
+                         <th class="rank">rank</th>
+                         <th class="headline">headline</th> 
+                         <th class="since">alive since</th>
+
+
+                     </thead>
+                  </table>
+
+          
+        
+       </div>
+        {% else %}
+        <h1>No guardian stories are currently on google news. Check back later...</h1>
+       {% endif %}
+     </div> 
+       
+       
+    </body>
 </html>

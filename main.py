@@ -14,7 +14,12 @@ class MainHandler(webapp.RequestHandler):
     @helpers.write_response
     #@helpers.cached('main')
     def get(self):
-        return helpers.render_template(self, 'webviews/front.html', {'articles': models.get_articles()})
+        articles = models.get_latest_articles()
+        if len(articles) > 0:
+            first_article = articles[0]
+        else:
+            first_article = None
+        return helpers.render_template(self, 'webviews/front.html', {'articles': models.get_articles(), 'first_article': first_article})
 
 class JsonHandler(webapp.RequestHandler):
     @helpers.write_response
