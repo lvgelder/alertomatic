@@ -10,6 +10,7 @@ class Article(search.SearchableModel):
     published_time = db.DateTimeProperty()
     title = db.StringProperty(required=True)
     url = db.StringProperty(required=True)
+    category = db.StringProperty(required=False)
     alerted = db.BooleanProperty(default=False)
     position = db.IntegerProperty(required=True)
     feed_url = db.StringProperty(required=True)
@@ -30,8 +31,8 @@ class EmailForm(djangoforms.ModelForm):
       class Meta:
         model = EmailAddress
 
-def create_article(created_at, published_time, title, url, feed_url, position, alerted=False):
-    report = Article(created_at=created_at, published_time=published_time, title=title, url=url, feed_url=feed_url, position=position, alerted=alerted)
+def create_article(created_at, published_time, title, url, category, feed_url, position, alerted=False):
+    report = Article(created_at=created_at, published_time=published_time, title=title, url=url, category=category, feed_url=feed_url, position=position, alerted=alerted)
     return report
 
 

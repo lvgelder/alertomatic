@@ -24,7 +24,7 @@ def parseFeed(rssUrl):
                 polledtime = datetime.now()
                 plushour2 = timedelta(hours=1)
                 polledtime = polledtime + plushour2
-                new_article = models.create_article(polledtime, pubtime, item.title, article_url, rssUrl, count,  alerted=False)
+                new_article = models.create_article(polledtime, pubtime, item.title, article_url, item.category, rssUrl, count,  alerted=False)
                 new_articles.append(new_article)
                 new_article.put()
 
