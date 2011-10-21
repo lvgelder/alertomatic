@@ -8,7 +8,7 @@ def send_alerts(feed_url, articles):
         slug = extract_slug(article.url)
         fid = extract_feed_identifier(feed_url)
         for email in models.get_emails():
-            subject =  slug+" : "+str(article.position)+" in "+fid
+            subject =  slug+" : top position in cluster "+str(article.position)+" "+fid
             if(article.category):
                 subject =  subject + " "+ article.category
             message = mail.EmailMessage(sender="sheena.luu@guardian.co.uk",
@@ -23,7 +23,7 @@ def send_death_alert(feed_url, articles):
         slug = extract_slug(article.url)
         fid = extract_feed_identifier(feed_url)
         for email in models.get_emails():
-            subject =  slug+" : removed from "+fid
+            subject =  slug+" : removed from top position in "+fid
             if(article.category):
                 subject =  subject + " "+ article.category
             message = mail.EmailMessage(sender="sheena.luu@guardian.co.uk",
