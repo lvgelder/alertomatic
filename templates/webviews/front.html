@@ -51,22 +51,15 @@
                                 createNotificationInstance({ notificationType: 'simple', title: this.title, message: msg }).show();      
                                 currentNotifications.push(url);  
                                 notifications[this.url] = {title : this.title, position: this.position};
-                                $(table).prepend(
-                                    "<tr>
-                                     <td class='rank'>"+this.position+"</td>
-                                     <td class='headline'><a href='"+this.url+"' title='"+this.title+"'>"+this.title+"</a></td> 
-                                     <td class='since'>"+this.position+"</td>
-                                     </tr>");
+                                var row = '<tr><td class="rank">' + this.position + '</td><td class="headline"><a href="' + this.url + '" title="' + this.title + '">' + this.title + '"</a></td><td class="category"><a href="' + this.feed_url + '" title="' + this.category + '">' + this.category + '"</a></td><td class="since">' + this.position + '</td></tr>';
+                                $('table').prepend(row);
                             } else {
                                 
                                 //createNotificationInstance({ notificationType: 'simple', title: this.title, message: msg }).show(); 
-                            }
-                            
+                            }    
                             
                         });
-                        $.each(result, function(item) {
-                       
-                        }
+                    },  
                     error: function(){
                         console.log("Failed to load data");
                     }
@@ -112,6 +105,7 @@
                       <tr>
                          <td class="rank">{{article.position}}</td>
                          <td class="headline"><a href="{{article.url}}" title="{{article.title}}">{{article.title}}</a></td> 
+                         <td class="category"><a href="{{article.feed_url}}" title="{{article.category}}">{{article.category}}</a></td> 
                          <td class="since">{{article.created_at|date:"g:iA"}}</td>
                       </tr>
                          {% endfor %}
@@ -122,6 +116,7 @@
 
                          <th class="rank">rank</th>
                          <th class="headline">headline</th> 
+                         <th class="category">category</th> 
                          <th class="since">alive since</th>
 
 
