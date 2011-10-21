@@ -17,6 +17,12 @@ tr:hover {
  	text-decoration: none;
  }
 
+.notification {
+	float: right;
+	display: block;
+	margin-bottom: 15px;
+}
+
 
 
 
