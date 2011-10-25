@@ -1,4 +1,4 @@
-application: headline-alertomatic
+application: news-alertomatic
 version: 4
 runtime: python
 api_version: 1
@@ -6,6 +6,7 @@ api_version: 1
 handlers:
 - url: /admin/.*
   script: admin.py
+  login: admin
 
 - url: /static
   static_dir: static
