@@ -1,4 +1,4 @@
-application: news-alertomatic
+application: headline-alertomatic
 version: 5
 runtime: python
 api_version: 1

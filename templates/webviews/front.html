@@ -11,12 +11,41 @@
    
         <link type="text/css" rel="stylesheet" href="/static/styles.css">
 
+        <script>
+          $(document).ready(function(){
+               //initialise with those already on the page
+
+               function initialiseNotifications(){
+
+                    $.each($('.headline a'), function(){
+                        currentNotifications.push($(this).attr('href'));
+                    });
+                    $('tbody').html();
+                    fetchData();
+               }
+
+               initialiseNotifications();
+               checkFeed();
+
+               $('#start').click(function(event) {
+                   event.stopPropagation();
+                   startNotify();
+               });
+
+               $('#stop').click(function(event) {
+                   event.stopPropagation();
+                   stopNotify();
+               });
+
+           });
+                  
+        </script>
     </head>
     <body>
     <div class="dashboard">
         <div class="error"></div>
         {% if first_article %}
-       <h1>Current guardian stories on google news <small>last update at {{first_article.created_at|date:"g:iA"}}</small></h1>
+       <h1>Current guardian stories on google news <small>last update at <span class="time">{{first_article.created_at|date:"g:iA"}}</span></small></h1>
 
               <div>
                   <div class="notification">
@@ -24,7 +53,7 @@
                       <button id="stop" class="btn" href="#">Stop bothering me!</button>
                   </div>
                   <table>
-
+                    <tbody>
                          {% for article in articles %}
                       <tr>
                          <td class="rank">{{article.position}}</td>
