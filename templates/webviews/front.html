@@ -11,35 +11,6 @@
    
         <link type="text/css" rel="stylesheet" href="/static/styles.css">
 
-        <script>
-          $(document).ready(function(){
-               //initialise with those already on the page
-
-               function initialiseNotifications(){
-
-                    $.each($('.headline a'), function(){
-                        currentNotifications.push($(this).attr('href'));
-                    });
-                    $('tbody').html();
-                    fetchData();
-               }
-
-               initialiseNotifications();
-               checkFeed();
-
-               $('#start').click(function(event) {
-                   event.stopPropagation();
-                   startNotify();
-               });
-
-               $('#stop').click(function(event) {
-                   event.stopPropagation();
-                   stopNotify();
-               });
-
-           });
-                  
-        </script>
     </head>
     <body>
     <div class="dashboard">
