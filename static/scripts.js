@@ -1,7 +1,10 @@
 $(document).ready(function(){
       var currentNotifications = [];
       var notifications = {};
-      var url = "http://news-alertomatic.appspot.com/data.json";
+
+      var url = "http://localhost:8080/data.json";
+      //var url = "http://news-alertomatic.appspot.com/data.json";
+
       var timer;
 
       function checkCurrentNotifications() {
@@ -31,18 +34,19 @@ $(document).ready(function(){
 
                     var url = this.url;
 
-                    if ($.inArray(url, currentNotifications) == -1){
+                    if ($.inArray(url, currentNotifications) != -1) {
+
+                        //createNotificationInstance({ notificationType: 'simple', title: this.title, message: msg }).show();
+                    } else {
                         //var message = "<div><a href='" + this.url + "'>" + this.title + "</a>" + this.position + "</div>";
-                        var msg = 'Appeared and currently ranked ' + this.position;
+                        var msg = 'Appeared and currently ranked ' + this.position + '.'  + this.subposition;
 
                         createNotificationInstance({ notificationType: 'simple', title: this.title, message: msg }).show();
                         currentNotifications.push(url);
-                        notifications[this.url] = {title : this.title, position: this.position};
-                        var row = '<tr><td class="rank">' + this.position + '</td><td class="headline"><a href="' + this.url + '" title="' + this.title + '">' + this.title + '</a></td><td class="category"><a href="' + this.feed_url + '" title="' + this.category + '">' + this.category + '</a></td><td class="since">' +  this.created_at  + '</td></tr>';
+                        notifications[this.url] = {title : this.title, position: this.position, subposition : this.subposition};
+                        var row = '<tr><td class="rank">' + this.position + '.' +  this.subposition + '</td><td class="headline"><a href="' + this.url + '" title="' + this.title + '">' + this.title + '</a></td><td class="category"><a href="' + this.feed_url + '" title="' + this.category + '">' + this.category + '</a></td><td class="since">' + this.created_at + '</td></tr>';
                         $('table').prepend(row);
-                    } else {
 
-                        //createNotificationInstance({ notificationType: 'simple', title: this.title, message: msg }).show();
                     }
 
                 });

@@ -27,9 +27,9 @@
                     <tbody>
                          {% for article in articles %}
                       <tr>
-                         <td class="rank">{{article.position}}</td>
-                         <td class="headline"><a href="{{article.url}}" title="{{article.title}}">{{article.title}}</a></td> 
-                         <td class="category"><a href="{{article.feed_url}}" title="{{article.category}}">{{article.category}}</a></td> 
+                         <td class="rank">{{article.position}}.{{article.sub_position}}</td>
+                         <td class="headline"><a href="{{article.url}}" title="{{article.title}}">{{article.title}}</a></td>
+                         <td class="category"><a href="{{article.feed_url}}" title="{{article.category}}">{{article.category}}</a></td>
                          <td class="since">{{article.created_at|date:"g:iA"}}</td>
                       </tr>
                          {% endfor %}
@@ -39,8 +39,8 @@
                     <thead>
 
                          <th class="rank">rank</th>
-                         <th class="headline">headline</th> 
-                         <th class="category">category</th> 
+                         <th class="headline">headline</th>
+                         <th class="category">category</th>
                          <th class="since">alive since</th>
 
 

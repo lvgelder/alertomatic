@@ -13,7 +13,9 @@ class Article(search.SearchableModel):
     category = db.StringProperty(required=False)
     alerted = db.BooleanProperty(default=False)
     position = db.IntegerProperty(required=True)
+    sub_position = db.IntegerProperty(required=True)
     feed_url = db.StringProperty(required=True)
+
 
 
 class Url(search.SearchableModel):
@@ -31,8 +33,8 @@ class EmailForm(djangoforms.ModelForm):
       class Meta:
         model = EmailAddress
 
-def create_article(created_at, published_time, title, url, category, feed_url, position, alerted=False):
-    report = Article(created_at=created_at, published_time=published_time, title=title, url=url, category=category, feed_url=feed_url, position=position, alerted=alerted)
+def create_article(created_at, published_time, title, url, category, feed_url, position, sub_position, alerted):
+    report = Article(created_at=created_at, published_time=published_time, title=title, url=url, category=category, feed_url=feed_url, position=position, sub_position=sub_position, alerted=alerted)
     return report
 
 
@@ -46,8 +48,8 @@ def get_article(url, feed_url):
     query = db.Query(Article).filter('url =', url).filter('feed_url =', feed_url)
     return query.get()
 
-def get_articles_for_feed(feedurl, maximum=250):
-    query = db.Query(Article).filter('feed_url =', feedurl)
+def get_articles_for_feed(feed_url, maximum=250):
+    query = db.Query(Article).filter('feed_url =', feed_url)
     return query.fetch(maximum)
 
 
